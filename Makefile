@@ -1,4 +1,4 @@
 BUILD=./build
 
 all: main.c
-	gcc main.c -o $(BUILD)/elf_loader
+	gcc main.c elf_def.c -o $(BUILD)/elf_loader

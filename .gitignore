@@ -1,2 +1,4 @@
 *.pdf
 build/*
+test.c
+text.text
