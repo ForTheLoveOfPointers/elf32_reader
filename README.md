@@ -12,7 +12,7 @@ A minimal ELF file reader and executor written in C for educational purposes.
 ## Usage
 ```bash
 gcc elf_reader.c -o elf_reader
-./elf_reader 
+./elf_reader <elf_file_name>
 ```
 
 ## Requirements
