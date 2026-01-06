@@ -34,10 +34,24 @@ int main(int argc, char **argv) {
     print_elf_header(&elf_header);
     uint8_t is_compat = check_elf_compat(&elf_header);
 
-    if(is_compat != ELF_OK && is_compat != ELF_ARCH_ERR) {
+    if(!(is_compat == ELF_OK || is_compat == ELF_ARCH_ERR)) {
         return is_compat;
     }
 
+
+    ElfProgramHeader *elf_ph_arr = NULL;
+
+    if(!load_elf_pheader_array(&elf_ph_arr, elf_header.e_phnum, elf_file)) {
+        free(elf_ph_arr);
+        fclose(elf_file);
+        return ELF_UNK_ERR;
+    }
+    
+    print_elf_pheader(&elf_ph_arr[0]);
+    print_elf_pheader(&elf_ph_arr[1]);
+    print_elf_pheader(&elf_ph_arr[2]);
+
+    free(elf_ph_arr);
     fclose(elf_file);
-    return 0;
+    return ELF_OK;
 }
