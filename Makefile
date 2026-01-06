@@ -6,4 +6,7 @@ MAIN = main.c
 all: main.c source
 	gcc $(MAIN) $(SRC)/* -I$(INCLUDE) -o $(BUILD)/elf_loader
 
-source: src/elf_def.c src/elf_load.c
+clean: $(BUILD)/elf_loader
+	rm $(BUILD)/elf_loader
+
+source: $(SRC)/elf_def.c $(SRC)/elf_load.c

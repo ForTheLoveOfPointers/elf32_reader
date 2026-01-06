@@ -12,5 +12,10 @@
 #define PAGE_DOWN(x) ((x) & ~(PAGE_SIZE - 1))
 #define PAGE_UP(x)   (((x) + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1))
 
+enum ELF_PPROTOFLAGS {
+    PF_X = 1,
+    PF_W = 2,
+    PF_R = 4
+};
 
 void load_pt_load_segment(FILE *elf_file, ElfProgramHeader *pheader);

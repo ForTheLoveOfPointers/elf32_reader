@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "include/elf_def.h"
+#include "elf_def.h"
+#include "elf_load.h"
 
 
 /**
@@ -48,7 +49,7 @@ int main(int argc, char **argv) {
     }
     
     for(uint8_t i = 0; i < elf_header.e_phnum; i++) {
-        print_elf_pheader(&elf_ph_arr[i]);
+        load_pt_load_segment(elf_file, &elf_ph_arr[i]);
     }
 
     free(elf_ph_arr);
