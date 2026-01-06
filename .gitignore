@@ -1,4 +1,4 @@
 *.pdf
 build/*
 test.c
-text.text
+text.txt

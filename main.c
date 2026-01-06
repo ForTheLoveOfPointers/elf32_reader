@@ -47,9 +47,9 @@ int main(int argc, char **argv) {
         return ELF_UNK_ERR;
     }
     
-    print_elf_pheader(&elf_ph_arr[0]);
-    print_elf_pheader(&elf_ph_arr[1]);
-    print_elf_pheader(&elf_ph_arr[2]);
+    for(uint8_t i = 0; i < elf_header.e_phnum; i++) {
+        print_elf_pheader(&elf_ph_arr[i]);
+    }
 
     free(elf_ph_arr);
     fclose(elf_file);

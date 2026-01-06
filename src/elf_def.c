@@ -1,4 +1,4 @@
-#include "include/elf_def.h"
+#include "elf_def.h"
 #include <stdio.h>
 #include <sys/utsname.h>
 #include <string.h>
@@ -43,6 +43,7 @@ void print_elf_header(ElfHeader *header) {
 
 
 void print_elf_pheader(ElfProgramHeader *pheader) {
+    printf("ELF Program Header\n");
     printf("  Type:                              %u\n", pheader->p_type);
     printf("  Offset:                            %u\n", pheader->p_offset);
     printf("  Virtual Addr:                      %u\n", pheader->p_vaddr);
