@@ -8,9 +8,7 @@
  * but mmap() requires data to be page aligned. Because ELF segments may very well start
  * in the middle of a page (aka 'not being aligned'), functions are necessary to set a valid addr before loading into RAM
  */
-#define PAGE_SIZE 4096
-#define PAGE_DOWN(x) ((x) & ~(PAGE_SIZE - 1))
-#define PAGE_UP(x)   (((x) + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1))
+#define STACK_SIZE 1048576 // 1 MiB
 
 enum ELF_PPROTOFLAGS {
     PF_X = 1,
@@ -19,3 +17,7 @@ enum ELF_PPROTOFLAGS {
 };
 
 void load_pt_load_segment(FILE *elf_file, ElfProgramHeader *pheader);
+Elf32Addr load_stack_mem(void);
+Elf32Addr load_initial_stack(Elf32Addr stack_top);
+
+_Noreturn void jmp_entry(uintptr_t entry_addr, Elf32Addr sp);

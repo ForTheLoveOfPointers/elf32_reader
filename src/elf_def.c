@@ -46,8 +46,8 @@ void print_elf_pheader(ElfProgramHeader *pheader) {
     printf("ELF Program Header\n");
     printf("  Type:                              %u\n", pheader->p_type);
     printf("  Offset:                            %u\n", pheader->p_offset);
-    printf("  Virtual Addr:                      %u\n", pheader->p_vaddr);
-    printf("  Physicial Addr:                    %u\n", pheader->p_paddr);
+    printf("  Virtual Addr:                      0x%x\n", pheader->p_vaddr);
+    printf("  Physicial Addr:                    0x%x\n", pheader->p_paddr);
     printf("  File size:                         %u\n", pheader->p_filesz);
     printf("  Memory size:                       %u\n", pheader->p_memsz);
     printf("  Flags:                             %u\n", pheader->p_flags);
@@ -86,7 +86,7 @@ bool load_elf_pheader_array(ElfProgramHeader **elf_ph_arr, Elf32Half phnum, FILE
     size_t num_read = fread(*elf_ph_arr, sizeof(ElfProgramHeader), phnum, elf_file);
     size_t expected = sizeof(ElfProgramHeader) * (size_t) phnum;
     if(num_read < phnum) {
-        printf("ERROR || Could not read the appropiate amount of entries. Expected '%lu' entries, but read '%u'.", expected, phnum);
+        printf("ERROR || Could not read the appropiate amount of entries. Expected '%u' entries, but read '%u'.", expected, phnum);
         return false;
     }
     return true;

@@ -35,9 +35,10 @@ int main(int argc, char **argv) {
     print_elf_header(&elf_header);
     uint8_t is_compat = check_elf_compat(&elf_header);
 
-    if(!(is_compat == ELF_OK || is_compat == ELF_ARCH_ERR)) {
+    /*if(is_compat != ELF_OK) {
         return is_compat;
     }
+        */
 
 
     ElfProgramHeader *elf_ph_arr = NULL;
@@ -49,8 +50,20 @@ int main(int argc, char **argv) {
     }
     
     for(uint8_t i = 0; i < elf_header.e_phnum; i++) {
-        load_pt_load_segment(elf_file, &elf_ph_arr[i]);
+        if(elf_ph_arr[i].p_type == 1) {
+            load_pt_load_segment(elf_file, &elf_ph_arr[i]);
+            
+            print_elf_pheader(&elf_ph_arr[i]);
+        }
     }
+
+
+
+    Elf32Addr sp = load_stack_mem(); // Stack pointer
+    uintptr_t entry_addr = (uintptr_t)elf_header.e_entry;
+
+    load_initial_stack(sp);
+    jmp_entry(entry_addr, sp);
 
     free(elf_ph_arr);
     fclose(elf_file);
